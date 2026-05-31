@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MathLite IDE</title>
+<link rel="stylesheet" href="/static/style.css?v=4" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script defer src="/static/app.js?v=4"></script>
+</head>
+<body>
+<header class="topbar">
+  <h1>MathLite <small>IDE</small></h1>
+  <div class="actions">
+    <button id="btn-run" class="primary">▶ Ejecutar</button>
+    <button id="btn-save">💾 Guardar caso</button>
+    <span id="storage-badge" class="badge">…</span>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="editor-pane">
+    <div class="pane-header">
+      <span>Código</span>
+      <select id="examples">
+        <option value="">— Ejemplos —</option>
+        <option value="ex-area">Área de triángulo + while</option>
+        <option value="ex-fact">Factorial recursivo</option>
+        <option value="ex-precedence">Precedencia mixta</option>
+        <option value="ex-trig">Trigonometría compuesta</option>
+        <option value="ex-call-call">Función que llama función</option>
+        <option value="ex-lex-err">Error léxico (carácter inválido)</option>
+        <option value="ex-syn-err">Error sintáctico (paréntesis)</option>
+        <option value="ex-sem-err">Error semántico (variable no decl.)</option>
+        <option value="ex-rt-err">Error runtime (división por cero)</option>
+      </select>
+    </div>
+    <textarea id="editor"></textarea>
+  </section>
+
+  <section class="result-pane">
+    <nav class="tabs">
+      <button data-tab="output" class="active">Salida</button>
+      <button data-tab="diagnostics">Diagnósticos <span id="diag-count" class="pill"></span></button>
+      <button data-tab="tokens">Tokens</button>
+      <button data-tab="ast">AST</button>
+      <button data-tab="cases">Casos guardados</button>
+    </nav>
+    <div id="panel-output" class="panel active"><pre id="output">(sin ejecutar)</pre></div>
+    <div id="panel-diagnostics" class="panel"><div id="diagnostics" class="diag-list"></div></div>
+    <div id="panel-tokens" class="panel"><pre id="tokens"></pre></div>
+    <div id="panel-ast" class="panel">
+      <div id="ast-graph" class="ast-graph"></div>
+      <pre id="ast" style="display:none"></pre>
+    </div>
+    <div id="panel-cases" class="panel">
+      <div class="cases-toolbar">
+        <button id="btn-refresh-cases">↻ Refrescar</button>
+      </div>
+      <ul id="cases-list" class="cases-list"></ul>
+    </div>
+  </section>
+</main>
+</body>
+</html>

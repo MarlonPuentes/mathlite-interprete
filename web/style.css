@@ -1,0 +1,116 @@
+* { box-sizing: border-box; }
+:root {
+  --bg: #1e1e2e;
+  --bg-2: #282a36;
+  --panel: #2b2d3a;
+  --fg: #f8f8f2;
+  --muted: #6c7086;
+  --accent: #89b4fa;
+  --accent-2: #a6e3a1;
+  --danger: #f38ba8;
+  --warn: #f9e2af;
+}
+html, body { margin: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+body { display: flex; flex-direction: column; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1rem; background: var(--bg-2); border-bottom: 1px solid #444; }
+.topbar h1 { margin: 0; font-size: 1.1rem; font-weight: 600; color: var(--accent); }
+.topbar small { color: var(--muted); font-weight: 400; margin-left: 0.4rem; }
+.actions { display: flex; gap: 0.5rem; align-items: center; }
+
+button { background: #44475a; color: var(--fg); border: 0; padding: 0.4rem 0.9rem; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+button:hover { background: #565869; }
+button.primary { background: var(--accent); color: #1e1e2e; font-weight: 600; }
+button.primary:hover { background: #b4befe; }
+
+.badge { padding: 0.2rem 0.6rem; background: var(--panel); border-radius: 999px; font-size: 0.75rem; color: var(--muted); }
+.badge.mongo { color: var(--accent-2); }
+
+.layout { flex: 1; display: grid; grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr); gap: 1px; background: #444; overflow: hidden; }
+
+.pane-header { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.8rem; background: var(--bg-2); border-bottom: 1px solid #333; font-size: 0.85rem; color: var(--muted); }
+.editor-pane, .result-pane { display: flex; flex-direction: column; background: var(--bg-2); min-height: 0; }
+.CodeMirror { height: 100% !important; font-size: 14px; flex: 1; min-height: 0; }
+.editor-pane { min-height: 0; }
+.editor-pane > .CodeMirror { flex: 1; }
+
+#examples { background: var(--panel); color: var(--fg); border: 1px solid #444; padding: 0.2rem 0.5rem; border-radius: 4px; }
+
+.tabs { display: flex; background: var(--bg-2); border-bottom: 1px solid #333; }
+.tabs button { background: transparent; border-bottom: 2px solid transparent; border-radius: 0; padding: 0.6rem 1rem; color: var(--muted); font-size: 0.85rem; }
+.tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.panel { display: none; flex: 1; overflow: auto; padding: 0.8rem 1rem; min-height: 0; }
+.panel.active { display: block; }
+
+pre { margin: 0; font-family: "JetBrains Mono", "Fira Code", monospace; font-size: 13px; white-space: pre-wrap; word-break: break-word; line-height: 1.45; }
+
+.diag-list { display: flex; flex-direction: column; gap: 0.4rem; }
+.diag { padding: 0.5rem 0.7rem; border-radius: 6px; background: var(--panel); border-left: 4px solid var(--muted); font-size: 0.85rem; }
+.diag.lexical { border-left-color: var(--warn); }
+.diag.syntax { border-left-color: var(--danger); }
+.diag.semantic { border-left-color: var(--accent); }
+.diag.runtime { border-left-color: #fab387; }
+.diag .where { color: var(--muted); font-family: monospace; font-size: 0.78rem; margin-right: 0.5rem; }
+
+.pill { background: var(--danger); color: #1e1e2e; border-radius: 999px; padding: 0 0.4rem; font-size: 0.7rem; margin-left: 0.3rem; display: none; }
+.pill.visible { display: inline-block; }
+
+.cases-toolbar { margin-bottom: 0.6rem; }
+.cases-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.cases-list li { background: var(--panel); border-radius: 6px; padding: 0.5rem 0.8rem; display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
+.cases-list .title { font-weight: 600; }
+.cases-list .meta { color: var(--muted); font-size: 0.75rem; }
+.cases-list button { font-size: 0.75rem; padding: 0.25rem 0.55rem; }
+.cases-list .load { background: var(--accent); color: #1e1e2e; }
+.cases-list .delete { background: var(--danger); color: #1e1e2e; }
+
+/* ---------- AST gráfico ---------- */
+#panel-ast {
+  padding: 0;
+  overflow: auto;
+  background:
+    radial-gradient(circle at 1px 1px, #3a3d52 1px, transparent 0) 0 0 / 22px 22px,
+    var(--bg-2);
+}
+#ast-graph { min-width: 100%; min-height: 100%; display: block; }
+#ast-graph svg { display: block; margin: 0 auto; }
+.ast-empty {
+  padding: 2rem; color: var(--muted); font-size: 0.9rem; text-align: center;
+}
+
+/* Links del árbol */
+#ast-graph .link {
+  fill: none; stroke: #6c7086; stroke-width: 1.5px; stroke-opacity: 0.7;
+}
+
+/* Nodos */
+#ast-graph .node rect {
+  stroke-width: 1.5px; rx: 6; ry: 6;
+  transition: filter 0.15s ease;
+}
+#ast-graph .node:hover rect { filter: brightness(1.25); }
+#ast-graph .node text {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 12px;
+  fill: #1e1e2e;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* Colores por tipo de nodo */
+#ast-graph .node.program  rect { fill: #cdd6f4; stroke: #89b4fa; }
+#ast-graph .node.block    rect { fill: #b4befe; stroke: #89b4fa; }
+#ast-graph .node.assign   rect { fill: #89b4fa; stroke: #b4befe; }
+#ast-graph .node.funcdef  rect { fill: #74c7ec; stroke: #89dceb; }
+#ast-graph .node.control  rect { fill: #cba6f7; stroke: #b4befe; }
+#ast-graph .node.operator rect { fill: #fab387; stroke: #f9e2af; }
+#ast-graph .node.call     rect { fill: #a6e3a1; stroke: #94e2d5; }
+#ast-graph .node.variable rect { fill: #94e2d5; stroke: #89dceb; }
+#ast-graph .node.literal  rect { fill: #f9e2af; stroke: #fab387; }
+#ast-graph .node.io       rect { fill: #f5c2e7; stroke: #cba6f7; }
+#ast-graph .node.stmt     rect { fill: #bac2de; stroke: #cdd6f4; }
+#ast-graph .node.label    rect { fill: #585b70; stroke: #6c7086; }
+#ast-graph .node.label    text { fill: #f8f8f2; font-style: italic; }
+#ast-graph .node.none     rect { fill: #45475a; stroke: #585b70; }
+#ast-graph .node.unknown  rect { fill: #f38ba8; stroke: #eba0ac; }
