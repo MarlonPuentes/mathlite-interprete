@@ -1,4 +1,4 @@
-"""Errores y diagnósticos del intérprete MathLite."""
+"""Errores y. diagnósticos del intérprete MathLite."""
 from dataclasses import dataclass
 from enum import Enum
 
