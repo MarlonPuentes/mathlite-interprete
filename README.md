@@ -1,6 +1,6 @@
 # MathLite — Intérprete con Análisis Semántico
 
-Proyecto Final · Lenguajes Formales, Autómatas e Investigación sobre Implementación de Compiladores · Período Académico 2026-1.
+Proyecto Final · Lenguajes Formales, Autómatas e Investigacción sobre Implementación de Compiladores · Período Académico 2026-1.
 
 Intérprete completo para **MathLite**, un DSL imperativo de tipado dinámico para cálculos matemáticos. Incluye las fases clásicas de un compilador (léxico → sintáctico → semántico → interpretación), interfaz web, persistencia en MongoDB Atlas y suite de pruebas automatizadas.
 
