@@ -1,14 +1,72 @@
-.env
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-pytest-cache-files-*/
-*.egg-info/
-dist/
-build/
+# Entornos virtuales
 .venv/
 venv/
+env/
+ENV/
+
+# Variables de entorno y secretos
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Bytecode / cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Empaquetado / distribución
+*.egg-info/
+*.egg
+dist/
+build/
+wheels/
+*.whl
+pip-wheel-metadata/
+
+# Tests y cobertura
+.pytest_cache/
+pytest-cache-files-*/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+
+# Jupyter
+.ipynb_checkpoints/
 
 # Datos locales (storage de fallback cuando no hay MongoDB)
 data/
+*.sqlite
+*.db
+
+# Logs
+*.log
+logs/
+
+# IDEs / editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Sistema operativo
+desktop.ini
+$RECYCLE.BIN/
+
+# Render / despliegue
+.render/
